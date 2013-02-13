@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "welcome";
+$route['default_controller'] = "cen_cont";
 $route['404_override'] = '';
 
 
