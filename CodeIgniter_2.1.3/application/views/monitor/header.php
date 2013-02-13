@@ -89,6 +89,19 @@
 	{
 		color: #009;
 	}
+
+	#menu ul
+	{
+		list-style-type:none;
+		margin:10;
+		padding:0;
+	}
+
+	#menu li
+	{
+		display: inline;
+	}
+
 	</style>
 </head>
 <body>

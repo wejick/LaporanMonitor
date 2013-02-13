@@ -10,6 +10,5 @@
 			<li><a href="#">Laporan Downtime Host Bulan ini</a></li>
 			<li><a href="#">Detail laporan host</a></li>
 		</ol>
-
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
+	</div>
 </div>
