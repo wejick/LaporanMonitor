@@ -1,6 +1,14 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/*
+|--------------------------------------------------------------------------
+| my addition
+|--------------------------------------------------------------------------
+| set error reporting to E_ALL / enable all
+| set default timezone to UTC
+*/
 ini_set('display_errors',1); 
  error_reporting(E_ALL);
+date_default_timezone_set ('UTC');
 /*
 |--------------------------------------------------------------------------
 | Base Site URL

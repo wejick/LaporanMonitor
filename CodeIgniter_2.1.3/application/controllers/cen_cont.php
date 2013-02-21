@@ -18,12 +18,49 @@ class Cen_cont extends CI_Controller {
 		$this->load->view('monitor/monitor_hostlist', $data);
 		$this->load->view('monitor/footer');
 	}
-	public function view_host_log()
+	public function view_host_log($date = FALSE)
 	{
-		$data['title'] = "Sistem Pembuatan laporan Centreon : Laporan Kondisi Host";
+		//load helper
+		$this->load->helper('form');
+		// get posted variable from view
+		if($date != FALSE)
+		{
+			$date = array("month","year");
+			$date['month'] = $this->input->post('month');
+			$date['year'] = $this->input->post('year');
+		}
+		var_dump($date);
+		// load and call model function
 		$this->load->model('centreon_storage_model');
-		$data['host'] = $this->centreon_storage_model->get_host_log();
+		$data['host'] = $this->centreon_storage_model->get_host_log($date);
 		$data['year'] = $this->centreon_storage_model->get_year_list();
+		// view things
+		$data['title'] = "Sistem Pembuatan laporan Centreon : Laporan Kondisi Host";
+		$this->load->view('monitor/header', $data);
+		$this->load->view('monitor/monitor_hostlog', $data);
+		$this->load->view('monitor/footer');
+	}
+	public function view_log()
+	{
+		//load helper
+		$this->load->helper('form');
+		// load and call model function
+		$this->load->model('centreon_storage_model');		
+		$data['year'] = $this->centreon_storage_model->get_year_list();
+		// get posted variable from view		
+		if($this->input->post('month') !== FALSE)
+		{
+			$date = array("month","year");
+			$date['month'] = $this->input->post('month');
+			$date['year'] = $this->input->post('year');
+			$data['host_log'] = $this->centreon_storage_model->get_host_log($date);
+		} else
+		{
+			$date = FALSE;
+			$data['host_log'] = $this->centreon_storage_model->get_host_log();
+		}
+		// view things
+		$data['title'] = "Sistem Pembuatan laporan Centreon : Laporan Kondisi Host";
 		$this->load->view('monitor/header', $data);
 		$this->load->view('monitor/monitor_hostlog', $data);
 		$this->load->view('monitor/footer');
