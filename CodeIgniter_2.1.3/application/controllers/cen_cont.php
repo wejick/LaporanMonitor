@@ -23,7 +23,7 @@ class Cen_cont extends CI_Controller {
 		$data['title'] = "Sistem Pembuatan laporan Centreon : Laporan Kondisi Host";
 		$this->load->model('centreon_storage_model');
 		$data['host'] = $this->centreon_storage_model->get_host_log();
-		$data['date'] = $this->centreon_storage_model->get_month_list();
+		$data['year'] = $this->centreon_storage_model->get_year_list();
 		$this->load->view('monitor/header', $data);
 		$this->load->view('monitor/monitor_hostlog', $data);
 		$this->load->view('monitor/footer');

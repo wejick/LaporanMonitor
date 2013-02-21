@@ -5,6 +5,9 @@ class Centreon_model extends CI_model
 	{
 		$db = $this->load->database();
 	}
+	/*
+	get list of host and command of associated host
+	*/
 	function get_host_list()
 	{
 		$query = $this->db->query("SELECT
