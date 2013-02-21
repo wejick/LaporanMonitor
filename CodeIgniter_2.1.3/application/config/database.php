@@ -48,6 +48,24 @@
 $active_group = 'default';
 $active_record = TRUE;
 
+// database untuk centreon_storage
+$db['centreon_storage']['hostname'] = 'localhost';
+$db['centreon_storage']['username'] = 'root';
+$db['centreon_storage']['password'] = '';
+$db['centreon_storage']['database'] = 'centreon2_storage';
+$db['centreon_storage']['dbdriver'] = 'mysql';
+$db['centreon_storage']['dbprefix'] = '';
+$db['centreon_storage']['pconnect'] = TRUE;
+$db['centreon_storage']['db_debug'] = TRUE;
+$db['centreon_storage']['cache_on'] = FALSE;
+$db['centreon_storage']['cachedir'] = '';
+$db['centreon_storage']['char_set'] = 'utf8';
+$db['centreon_storage']['dbcollat'] = 'utf8_general_ci';
+$db['centreon_storage']['swap_pre'] = '';
+$db['centreon_storage']['autoinit'] = TRUE;
+$db['centreon_storage']['stricton'] = FALSE;
+
+// database untuk centreon
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
 $db['default']['password'] = '';
