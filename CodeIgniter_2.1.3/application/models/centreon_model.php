@@ -3,7 +3,7 @@ class Centreon_model extends CI_model
 {
 	function __construct()
 	{
-		$this->load->database();
+		$db = $this->load->database();
 	}
 	function get_host_list()
 	{
