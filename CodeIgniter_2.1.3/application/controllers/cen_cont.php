@@ -65,4 +65,30 @@ class Cen_cont extends CI_Controller {
 		$this->load->view('monitor/monitor_hostlog', $data);
 		$this->load->view('monitor/footer');
 	}
+	public function view_log_detail()
+	{
+		//load helper
+		$this->load->helper('form');
+		// load and call model function
+		$this->load->model('centreon_storage_model');		
+		$data['year'] = $this->centreon_storage_model->get_year_list();
+		$data['host_name'] = $this->centreon_storage_model->get_hostname_list();
+		// get posted variable from view		
+		if($this->input->post('month') !== FALSE)
+		{
+			$date = array("month","year");
+			$date['month'] = $this->input->post('month');
+			$date['year'] = $this->input->post('year');
+			$data['host_log'] = $this->centreon_storage_model->get_host_log($date);
+		} else
+		{
+			$date = FALSE;
+			$data['host_log'] = $this->centreon_storage_model->get_host_log_detail();
+		}
+		// view things
+		$data['title'] = "Sistem Pembuatan laporan Centreon : Laporan Detail Kondisi Host";
+		$this->load->view('monitor/header', $data);
+		$this->load->view('monitor/monitor_hostdetail', $data);
+		$this->load->view('monitor/footer');
+	}
 }

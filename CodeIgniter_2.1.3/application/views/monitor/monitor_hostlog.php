@@ -1,5 +1,5 @@
 <div id="container">
-	<h1>Daftar host kondisi host</h1>
+	<h1>Daftar kondisi host</h1>
 	<p> Pilih waktu monitoring :
 		<?php 
 			$month_list = range(1,12); //list of month

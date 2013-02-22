@@ -36,6 +36,18 @@ class Centreon_storage_model extends CI_Model {
 		$result = $query->result_array();
 		return $result[0]['name'];
 	}
+	// get hostname list
+	function get_hostname_list()
+	{
+		$query = $this->db_cent->query("SELECT
+			host_name
+			from `centreon2`.`host`
+			INNER JOIN `centreon2`.`command` 
+			ON `centreon2`.`host`.`command_command_id` = `centreon2`.`command`.`command_id`
+			"
+			);
+		return $query->result_array();
+	}
 	// get list of host log
 	function get_host_log($date = FALSE)
 	{
@@ -69,7 +81,7 @@ class Centreon_storage_model extends CI_Model {
 		} else 
 		{
 			$start_year = 2013; // this is usefull to interpret dropdown  value
-			$begin_date = mktime(24,0,0,$date['month']+1,
+			$begin_date = mktime(0,0,1,$date['month']+1,
 				1, intval($date['year'])+$start_year);
 			$end_date = mktime(23,59,59,$date['month']+1,
 				cal_days_in_month(CAL_GREGORIAN,$date['month']+1,$date['year']+$start_year),
@@ -128,6 +140,13 @@ class Centreon_storage_model extends CI_Model {
 		// get year array
 		$years = range(date('Y',$result[0]['start_date']), date('Y',$result[0]['end_date']));
 		return $years;
+	}
+	/*
+	get host log detail
+	*/
+	function get_host_log_detail()
+	{
+		
 	}
 
 }
