@@ -53,6 +53,7 @@ class Cen_cont extends CI_Controller {
 			$date = array("month","year");
 			$date['month'] = $this->input->post('month');
 			$date['year'] = $this->input->post('year');
+			// get table from model
 			$data['host_log'] = $this->centreon_storage_model->get_host_log($date);
 		} else
 		{
@@ -72,21 +73,30 @@ class Cen_cont extends CI_Controller {
 		// load and call model function
 		$this->load->model('centreon_storage_model');		
 		$data['year'] = $this->centreon_storage_model->get_year_list();
-		$data['host_name'] = $this->centreon_storage_model->get_hostname_list();
+		$temp = $this->centreon_storage_model->get_hostname_list();
+		$data['host_name'] = array();
+		// get inner array item
+		foreach ($temp as $host) {
+			array_push($data['host_name'], $host['host_name']);
+		}
 		// get posted variable from view		
 		if($this->input->post('month') !== FALSE)
 		{
-			$date = array("month","year");
-			$date['month'] = $this->input->post('month');
-			$date['year'] = $this->input->post('year');
-			$data['host_log'] = $this->centreon_storage_model->get_host_log($date);
+			$info = array("month","year","host");
+			$info['month'] = $this->input->post('month');
+			$info['year'] = $this->input->post('year');
+			$info['hostname'] = $this->input->post('hostname');
+			// because I don't know how to easy way to set value at dropdown
+			$info['hostname_list'] = $data['host_name'];
+			// get table from model
+			$data['host_log'] = $this->centreon_storage_model->get_host_log_detail($info);
 		} else
 		{
-			$date = FALSE;
 			$data['host_log'] = $this->centreon_storage_model->get_host_log_detail();
 		}
 		// view things
 		$data['title'] = "Sistem Pembuatan laporan Centreon : Laporan Detail Kondisi Host";
+		$data['hostname'] = $info['hostname_list'][$info['hostname']];
 		$this->load->view('monitor/header', $data);
 		$this->load->view('monitor/monitor_hostdetail', $data);
 		$this->load->view('monitor/footer');

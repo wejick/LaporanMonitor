@@ -36,6 +36,17 @@ class Centreon_storage_model extends CI_Model {
 		$result = $query->result_array();
 		return $result[0]['name'];
 	}
+	// get id from hostname
+	function get_host_id($hostname)
+	{
+		$query = $this->db_cent->query("SELECT
+			host_id as id
+			from `centreon2`.`host`
+			WHERE `host_name` = "."'".$hostname."'"
+			);
+		$result = $query->result_array();
+		return $result[0]['id'];
+	}
 	// get hostname list
 	function get_hostname_list()
 	{
@@ -48,7 +59,25 @@ class Centreon_storage_model extends CI_Model {
 			);
 		return $query->result_array();
 	}
-	// get list of host log
+	/*
+	get list of monitored year, we will display full 12 month + years from this fuction
+	at view
+	*/
+	function get_year_list()
+	{
+		$query = $this->db_cent_store->query("SELECT
+			min(`date_start`) as start_date,
+			max(`date_end`) as end_date
+			from `centreon2_storage`.`log_archive_host` ");
+		$result = $query->result_array();
+		// get year array
+		$years = range(date('Y',$result[0]['start_date']), date('Y',$result[0]['end_date']));
+		return $years;
+	}
+	/* get list of host log
+		date is array of (month, year, hostname)
+		month and year of date constraint
+	*/
 	function get_host_log($date = FALSE)
 	{
 		/*
@@ -127,28 +156,64 @@ class Centreon_storage_model extends CI_Model {
 		return $result;
 	}
 	/*
-	get list of monitored year, we will display full 12 month + years from this fuction
-	at view
+		get host log detail
+		info is array of (month, year, hostname)
+		month and year of date constraint
+		hostname of log
 	*/
-	function get_year_list()
+	function get_host_log_detail($info = FALSE)
 	{
-		$query = $this->db_cent_store->query("SELECT
-			min(`date_start`) as start_date,
-			max(`date_end`) as end_date
-			from `centreon2_storage`.`log_archive_host` ");
-		$result = $query->result_array();
-		// get year array
-		$years = range(date('Y',$result[0]['start_date']), date('Y',$result[0]['end_date']));
-		return $years;
+		/*
+		Show related data of host
+		UP_T is Total uptime
+		DONW_T is Total downtime
+		UNREACHABLE_T is Total unreachable time
+		UNDETERMINED_T is Total time for uncategorized condition
+		*/
+		if($info === FALSE)
+		{
+			$result = NULL;
+		} else
+		{
+			$start_year = 2013; // this is usefull to interpret dropdown  value
+			$begin_date = mktime(0,0,1,$info['month']+1,
+				1, intval($info['year'])+$start_year);
+			$end_date = mktime(23,59,59,$info['month']+1,
+				cal_days_in_month(CAL_GREGORIAN,$info['month']+1,$info['year']+$start_year),
+				intval($info['year'])+$start_year);
+			$id = $this->get_host_id($info['hostname_list'][$info['hostname']]);
+			$query = $this->db_cent_store->query("SELECT
+				`UPTimeScheduled` as UP_T,
+				`DOWNTimeScheduled` as DOWN_T,
+				`UNREACHABLETimeScheduled` as UNREACHABLE_T,
+				`UNDETERMINEDTimeScheduled` as UNDETERMINED_T
+				  FROM `centreon2_storage`.`log_archive_host` 
+				  WHERE date_start >= ".$begin_date.
+				  " AND date_end <= ".$end_date.
+				  " AND `host_id` = ".$id);
+			$result = array('host_log', 'begin_time', 'end_time' );
+			$result['host_log'] = $query->result_array();
+			$result['begin_time'] = date('d-M-Y',$begin_date) ;
+			$result['end_time'] = date('d-M-Y',$end_date);
+		}
+		/*
+		- count total time of UP, Down, Unreachable and Undetermined event
+		- add host_name
+		*/		
+		foreach ($result['host_log'] as &$host_item) {
+			// count total time
+			$temp = $this->diffku(0,$host_item['UP_T']);
+			$host_item['UP_T'] = $temp;
+			$temp = $this->diffku(0,$host_item['DOWN_T']);
+			$host_item['DOWN_T'] = $temp;
+			$temp = $this->diffku(0,$host_item['UNREACHABLE_T']);
+			$host_item['UNREACHABLE_T'] = $temp;
+			$temp = $this->diffku(0,$host_item['UNDETERMINED_T']);
+			$host_item['UNDETERMINED_T'] = $temp;
+		}
+		var_dump($result);
+		return $result;
 	}
-	/*
-	get host log detail
-	*/
-	function get_host_log_detail()
-	{
-		
-	}
-
 }
 
 /* End of file centreon_storage_model.php */
