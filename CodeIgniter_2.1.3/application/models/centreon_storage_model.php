@@ -6,6 +6,7 @@ class Centreon_storage_model extends CI_Model {
 	{
 		// multiple database handle mechanism
 		$this->db_cent_store = $this->load->database('centreon_storage', TRUE);
+		$this->db_cent = $this->load->database('default',TRUE);
 	}
 	
 	// get time difference
@@ -24,7 +25,17 @@ class Centreon_storage_model extends CI_Model {
 		 );
 		return $result;
 	}
-
+	// get hostname by id
+	function get_host_name($id)
+	{
+		$query = $this->db_cent->query("SELECT
+			host_name as name
+			from `centreon2`.`host`
+			WHERE host_id = ".$id
+			);
+		$result = $query->result_array();
+		return $result[0]['name'];
+	}
 	// get list of host log
 	function get_host_log($date = FALSE)
 	{
@@ -48,7 +59,7 @@ class Centreon_storage_model extends CI_Model {
 				sum(`UNREACHABLEnbEvent`) as UNREACHABLE_A, 
 				sum(`UNREACHABLETimeScheduled`) as UNREACHABLE_T,
 				sum(`UNDETERMINEDTimeScheduled`) as UNDETERMINED_T
-				  FROM `log_archive_host`
+				  FROM `centreon2_storage`.`log_archive_host`
 				  GROUP BY `host_id`");
 			$result = array('host_log', 'begin_time', 'end_time' );
 			$result['host_log'] = $query->result_array();
@@ -72,7 +83,7 @@ class Centreon_storage_model extends CI_Model {
 				sum(`UNREACHABLEnbEvent`) as UNREACHABLE_A, 
 				sum(`UNREACHABLETimeScheduled`) as UNREACHABLE_T,
 				sum(`UNDETERMINEDTimeScheduled`) as UNDETERMINED_T
-				  FROM `log_archive_host` 
+				  FROM `centreon2_storage`.`log_archive_host` 
 				  WHERE date_start >= ".$begin_date.
 				  " AND date_end <= ".$end_date.
 				  " GROUP BY `host_id`");
@@ -80,12 +91,13 @@ class Centreon_storage_model extends CI_Model {
 			$result['host_log'] = $query->result_array();
 			$result['begin_time'] = date('d-M-Y',$begin_date) ;
 			$result['end_time'] = date('d-M-Y',$end_date);
-			
 		}
 		/*
-		count total time of UP, Down, Unreachable and Undetermined event
-		*/
+		- count total time of UP, Down, Unreachable and Undetermined event
+		- add host_name
+		*/		
 		foreach ($result['host_log'] as &$host_item) {
+			// count total time
 			$temp = $this->diffku(0,$host_item['UP_T']);
 			$host_item['UP_T'] = $temp;
 			$temp = $this->diffku(0,$host_item['DOWN_T']);
@@ -94,8 +106,12 @@ class Centreon_storage_model extends CI_Model {
 			$host_item['UNREACHABLE_T'] = $temp;
 			$temp = $this->diffku(0,$host_item['UNDETERMINED_T']);
 			$host_item['UNDETERMINED_T'] = $temp;
+			// push new array for hostname
+			array_push($host_item, "hostname");
+			// insert hostname
+			$host_item['hostname'] = $this->get_host_name($host_item['host_id']);
 		}
-		print_r($result['host_log']);
+		//print_r($result['host_log']);
 		return $result;
 	}
 	/*
@@ -107,7 +123,7 @@ class Centreon_storage_model extends CI_Model {
 		$query = $this->db_cent_store->query("SELECT
 			min(`date_start`) as start_date,
 			max(`date_end`) as end_date
-			from `log_archive_host` ");
+			from `centreon2_storage`.`log_archive_host` ");
 		$result = $query->result_array();
 		// get year array
 		$years = range(date('Y',$result[0]['start_date']), date('Y',$result[0]['end_date']));

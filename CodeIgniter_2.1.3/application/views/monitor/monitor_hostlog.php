@@ -17,6 +17,7 @@
 	<table id="hor-minimalist-a">
 		<thead>
 		<tr>
+			<th>Host Name</th>
 			<th>Host Id</th>
 			<th>Up AttempT</th>
 			<th>Total Up Time</th>
@@ -30,6 +31,7 @@
 		<tbody>
 	<?php foreach ($host_log['host_log'] as $host_item): ?>
 		<tr>
+			<td><?php echo $host_item['hostname']?></td>
 	    	<td><?php echo $host_item['host_id'] ?></td>
     		<td><?php echo $host_item['UP_A'] ?></td>
         	<td>
