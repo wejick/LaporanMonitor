@@ -74,7 +74,7 @@
 		font-size: 12px;
 		background: #fff;
 		margin: 45px;
-		width: 480px;
+		width: 800px;
 		border-collapse: collapse;
 		text-align: left;
 	}

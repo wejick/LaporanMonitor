@@ -18,13 +18,13 @@
 		<thead>
 		<tr>
 			<th>Host Id</th>
-			<th>UP_A</th>
-			<th>UP_T</th>
-			<th>DOWN_A</th>
-			<th>DOWN_T</th>
-			<th>UNREACHABLE_A</th>
-			<th>UNREACHABLE_T</th>
-			<th>UNDETERMINED_T</th>
+			<th>Up AttempT</th>
+			<th>Total Up Time</th>
+			<th>Down Attemp</th>
+			<th>Total Down Time</th>
+			<th>Unreachable Attempt</th>
+			<th>Total Unreachable Time</th>
+			<th>Total Uncategorized Time</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -32,12 +32,64 @@
 		<tr>
 	    	<td><?php echo $host_item['host_id'] ?></td>
     		<td><?php echo $host_item['UP_A'] ?></td>
-        	<td><?php echo $host_item['UP_T'] ?></td>
+        	<td>
+        		<?php
+        			if(!(intval($host_item['UP_T']['month']) === 0))
+        				echo $host_item['UP_T']['month']." Bulan ";
+        			if(!(intval($host_item['UP_T']['day']) === 0))
+        				echo $host_item['UP_T']['day']." Hari ";
+        			if(!(intval($host_item['UP_T']['hour']) === 0))
+        				echo $host_item['UP_T']['hour']." Jam ";
+        			if(!(intval($host_item['UP_T']['min']) === 0))
+        				echo $host_item['UP_T']['min']." Menit ";
+        			if(!(intval($host_item['UP_T']['sec']) === 0))
+        				echo $host_item['UP_T']['sec']." Detik";
+        		?>
+        	</td>
 	        <td><?php echo $host_item['DOWN_A'] ?></td>
-	        <td><?php echo $host_item['DOWN_T'] ?></td>
+	        <td>
+				<?php
+        			if(!(intval($host_item['DOWN_T']['month']) === 0))
+        				echo $host_item['DOWN_T']['month']." Bulan ";
+        			if(!(intval($host_item['DOWN_T']['day']) === 0))
+        				echo $host_item['DOWN_T']['day']." Hari ";
+        			if(!(intval($host_item['DOWN_T']['hour']) === 0))
+        				echo $host_item['DOWN_T']['hour']." Jam ";
+        			if(!(intval($host_item['DOWN_T']['min']) === 0))
+        				echo $host_item['DOWN_T']['min']." Menit ";
+        			if(!(intval($host_item['DOWN_T']['sec']) === 0))
+        				echo $host_item['DOWN_T']['sec']." Detik";
+        		?>
+	        </td>
 	        <td><?php echo $host_item['UNREACHABLE_A'] ?></td>
-	        <td><?php echo $host_item['UNREACHABLE_T'] ?></td>
-	        <td><?php echo $host_item['UNDETERMINED_T'] ?></td>
+	        <td>
+				<?php
+        			if(!(intval($host_item['UNREACHABLE_T']['month']) === 0))
+        				echo $host_item['UNREACHABLE_T']['month']." Bulan ";
+        			if(!(intval($host_item['UNREACHABLE_T']['day']) === 0))
+        				echo $host_item['UNREACHABLE_T']['day']." Hari ";
+        			if(!(intval($host_item['UNREACHABLE_T']['hour']) === 0))
+        				echo $host_item['UNREACHABLE_T']['hour']." Jam ";
+        			if(!(intval($host_item['UNREACHABLE_T']['min']) === 0))
+        				echo $host_item['UNREACHABLE_T']['min']." Menit ";
+        			if(!(intval($host_item['UNREACHABLE_T']['sec']) === 0))
+        				echo $host_item['UNREACHABLE_T']['sec']." Detik";
+        		?>
+        	</td>
+	        <td>
+				<?php
+        			if(!(intval($host_item['UNDETERMINED_T']['month']) === 0))
+        				echo $host_item['UNDETERMINED_T']['month']." Bulan ";
+        			if(!(intval($host_item['UNDETERMINED_T']['day']) === 0))
+        				echo $host_item['UNDETERMINED_T']['day']." Hari ";
+        			if(!(intval($host_item['UNDETERMINED_T']['hour']) === 0))
+        				echo $host_item['UNDETERMINED_T']['hour']." Jam ";
+        			if(!(intval($host_item['UNDETERMINED_T']['min']) === 0))
+        				echo $host_item['UNDETERMINED_T']['min']." Menit ";
+        			if(!(intval($host_item['UNDETERMINED_T']['sec']) === 0))
+        				echo $host_item['UNDETERMINED_T']['sec']." Detik";
+        		?>
+	        </td>
     	</tr>
 	<?php endforeach ?>
 	</tbody>

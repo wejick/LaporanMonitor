@@ -7,6 +7,24 @@ class Centreon_storage_model extends CI_Model {
 		// multiple database handle mechanism
 		$this->db_cent_store = $this->load->database('centreon_storage', TRUE);
 	}
+	
+	// get time difference
+	function diffku($start, $end)
+	{
+		$start = getdate($start);
+		$end = getdate($end);
+
+		$result = array(
+			'sec' => $end['seconds'],
+			'min' => $end['minutes'],
+			'hour' => $end['hours'],
+			'day' => $end['mday']-$start['mday'],
+			'month' => $end['month']-$start['month'],
+			'year' => $end['year']-$start['year']
+		 );
+		return $result;
+	}
+
 	// get list of host log
 	function get_host_log($date = FALSE)
 	{
@@ -36,7 +54,7 @@ class Centreon_storage_model extends CI_Model {
 			$result['host_log'] = $query->result_array();
 			$result['begin_time'] = "awal dilakukan monitoring";
 			$result['end_time'] = "saat ini";
-			return $result;
+
 		} else 
 		{
 			$start_year = 2013; // this is usefull to interpret dropdown  value
@@ -62,9 +80,23 @@ class Centreon_storage_model extends CI_Model {
 			$result['host_log'] = $query->result_array();
 			$result['begin_time'] = date('d-M-Y',$begin_date) ;
 			$result['end_time'] = date('d-M-Y',$end_date);
-
-			return $result;
+			
 		}
+		/*
+		count total time of UP, Down, Unreachable and Undetermined event
+		*/
+		foreach ($result['host_log'] as &$host_item) {
+			$temp = $this->diffku(0,$host_item['UP_T']);
+			$host_item['UP_T'] = $temp;
+			$temp = $this->diffku(0,$host_item['DOWN_T']);
+			$host_item['DOWN_T'] = $temp;
+			$temp = $this->diffku(0,$host_item['UNREACHABLE_T']);
+			$host_item['UNREACHABLE_T'] = $temp;
+			$temp = $this->diffku(0,$host_item['UNDETERMINED_T']);
+			$host_item['UNDETERMINED_T'] = $temp;
+		}
+		print_r($result['host_log']);
+		return $result;
 	}
 	/*
 	get list of monitored year, we will display full 12 month + years from this fuction
