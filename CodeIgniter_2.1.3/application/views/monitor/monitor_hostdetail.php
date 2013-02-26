@@ -14,10 +14,14 @@
 			echo form_close();
 		?>
 	</p>
-	<p>Berikut adalah laporan <i>Up Time</i> sejak tanggal <b><?php echo $host_log['begin_time'] ?></b> hingga
-	<b><?php echo $host_log['end_time'] ?></b> untuk <?php echo $hostname ?> .  </p>
-	<h1>Nama host : <?php echo $hostname ?></h1>
-	<h1>Host ID : <?php echo $host_log['host_id'] ?></h1>
+	<?php
+        if($empty !== 1) {
+            echo "<p>Berikut adalah laporan <i>Up Time</i> sejak tanggal <b>".$host_log['begin_time']." </b> hingga
+	       <b> ".$host_log['end_time']."</b> untuk ".$hostname.". </p>";
+       } else {
+            echo "<p>Silahkan pilih host dan rentang waktu terlebih dahulu.</p>";
+       }
+    ?>
 	<table id="hor-minimalist-a">
 		<thead>
 		<tr>
@@ -26,11 +30,10 @@
 			<th>Total Unreachable Time</th>
 			<th>Total Uncategorized Time</th>
 			<th>Start time</th>
-			<th>End Time</th>
 		</tr>
 		</thead>
 		<tbody>
-	<?php var_dump($host_log); ?>
+    <?php if($empty !== 1) {?>
 	<?php foreach ($host_log['host_log'] as $host_item): ?>
 		<tr>
         	<td>
@@ -89,8 +92,12 @@
         				echo $host_item['UNDETERMINED_T']['sec']." Detik";
         		?>
 	        </td>
+            <td>
+                <?php echo unix_to_human($host_item['date_start']);?>
+            </td>
     	</tr>
-	<?php endforeach ?>
+	<?php endforeach?>
+    <?php } ?>
 	</tbody>
 	</table>
 </div>

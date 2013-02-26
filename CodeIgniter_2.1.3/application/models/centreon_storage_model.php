@@ -183,10 +183,12 @@ class Centreon_storage_model extends CI_Model {
 				intval($info['year'])+$start_year);
 			$id = $this->get_host_id($info['hostname_list'][$info['hostname']]);
 			$query = $this->db_cent_store->query("SELECT
+				host_id,
 				`UPTimeScheduled` as UP_T,
 				`DOWNTimeScheduled` as DOWN_T,
 				`UNREACHABLETimeScheduled` as UNREACHABLE_T,
-				`UNDETERMINEDTimeScheduled` as UNDETERMINED_T
+				`UNDETERMINEDTimeScheduled` as UNDETERMINED_T,
+				`date_start`
 				  FROM `centreon2_storage`.`log_archive_host` 
 				  WHERE date_start >= ".$begin_date.
 				  " AND date_end <= ".$end_date.
@@ -211,7 +213,6 @@ class Centreon_storage_model extends CI_Model {
 			$temp = $this->diffku(0,$host_item['UNDETERMINED_T']);
 			$host_item['UNDETERMINED_T'] = $temp;
 		}
-		var_dump($result);
 		return $result;
 	}
 }
