@@ -105,4 +105,8 @@ class Cen_cont extends CI_Controller {
 		$this->load->view('monitor/monitor_hostdetail', $data);
 		$this->load->view('monitor/footer');
 	}
+	public function view_svc_detail()
+	{
+		
+	}
 }
