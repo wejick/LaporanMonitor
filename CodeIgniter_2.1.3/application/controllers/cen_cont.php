@@ -9,38 +9,17 @@ class Cen_cont extends CI_Controller {
 		$this->load->view('monitor/monitor_index');
 		$this->load->view('monitor/footer');
 	}
-	public function view_host()
+	public function view_host($print = FALSE)
 	{
 		$data['title'] = "Sistem Pembuatan laporan Centreon : Daftar Host";
 		$this->load->model('centreon_model');
 		$data['host'] = $this->centreon_model->get_host_list();
 		$this->load->view('monitor/header', $data);
 		$this->load->view('monitor/monitor_hostlist', $data);
-		$this->load->view('monitor/footer');
+		if($print === FALSE)
+			$this->load->view('monitor/footer');
 	}
-	public function view_host_log($date = FALSE)
-	{
-		//load helper
-		$this->load->helper('form');
-		// get posted variable from view
-		if($date != FALSE)
-		{
-			$date = array("month","year");
-			$date['month'] = $this->input->post('month');
-			$date['year'] = $this->input->post('year');
-		}
-		var_dump($date);
-		// load and call model function
-		$this->load->model('centreon_storage_model');
-		$data['host'] = $this->centreon_storage_model->get_host_log($date);
-		$data['year'] = $this->centreon_storage_model->get_year_list();
-		// view things
-		$data['title'] = "Sistem Pembuatan laporan Centreon : Laporan Kondisi Host";
-		$this->load->view('monitor/header', $data);
-		$this->load->view('monitor/monitor_hostlog', $data);
-		$this->load->view('monitor/footer');
-	}
-	public function view_log()
+	public function view_log($print = FALSE)
 	{
 		//load helper
 		$this->load->helper('form');
@@ -64,9 +43,10 @@ class Cen_cont extends CI_Controller {
 		$data['title'] = "Sistem Pembuatan laporan Centreon : Laporan Kondisi Host";
 		$this->load->view('monitor/header', $data);
 		$this->load->view('monitor/monitor_hostlog', $data);
-		$this->load->view('monitor/footer');
+		if($print === FALSE)
+			$this->load->view('monitor/footer');
 	}
-	public function view_log_detail()
+	public function view_log_detail($print = FALSE)
 	{
 		//load helper
 		$this->load->helper('form');
@@ -103,9 +83,10 @@ class Cen_cont extends CI_Controller {
 			$data['hostname'] = $info['hostname_list'][$info['hostname']];
 		$this->load->view('monitor/header', $data);
 		$this->load->view('monitor/monitor_hostdetail', $data);
-		$this->load->view('monitor/footer');
+		if($print === FALSE)
+			$this->load->view('monitor/footer');
 	}
-	public function view_svc_detail()
+	public function view_svc_detail($print = FALSE)
 	{
 		// dealing with model
 		$this->load->model('nagios_model');
@@ -114,6 +95,7 @@ class Cen_cont extends CI_Controller {
 		$data['title'] = "Sistem Pembuatan Laporan Centreon : Laporan Detail Kondisi Service";
 		$this->load->view('monitor/header', $data);
 		$this->load->view('monitor/monitor_servicedetail', $data);
-		$this->load->view('monitor/footer', $data);
+		if($print === FALSE)
+			$this->load->view('monitor/footer', $data);
 	}
 }
