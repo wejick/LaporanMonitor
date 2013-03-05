@@ -107,6 +107,10 @@ class Cen_cont extends CI_Controller {
 	}
 	public function view_svc_detail()
 	{
-		
+		// view things
+		$data['title'] = "Sistem Pembuatan Laporan Centreon : Laporan Detail Kondisi Service";
+		$this->load->view('monitor/header', $data);
+		$this->load->view('monitor/monitor_servicedetail', $data);
+		$this->load->view('monitor/footer', $data);
 	}
 }

@@ -9,6 +9,7 @@
 			<li><a href=" <?php echo site_url("cen_cont/view_host")?>" >Daftar Host.</a></li>
 			<li><a href=" <?php echo site_url("cen_cont/view_log")?>">Laporan Host Bulan ini.</a></li>
 			<li><a href=" <?php echo site_url("cen_cont/view_log_detail")?>">Detail laporan host.</a></li>
+			<li><a href=" <?php echo site_url("cen_cont/view_svc_detail")?>">Detail laporan service.</a></li>
 		</ol>
 	</div>
 </div>
