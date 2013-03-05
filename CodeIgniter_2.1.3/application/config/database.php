@@ -65,6 +65,23 @@ $db['centreon_storage']['swap_pre'] = '';
 $db['centreon_storage']['autoinit'] = TRUE;
 $db['centreon_storage']['stricton'] = FALSE;
 
+// database untuk nagios
+$db['nagios']['hostname'] = 'localhost';
+$db['nagios']['username'] = 'root';
+$db['nagios']['password'] = '';
+$db['nagios']['database'] = 'nagios';
+$db['nagios']['dbdriver'] = 'mysql';
+$db['nagios']['dbprefix'] = '';
+$db['nagios']['pconnect'] = TRUE;
+$db['nagios']['db_debug'] = TRUE;
+$db['nagios']['cache_on'] = FALSE;
+$db['nagios']['cachedir'] = '';
+$db['nagios']['char_set'] = 'utf8';
+$db['nagios']['dbcollat'] = 'utf8_general_ci';
+$db['nagios']['swap_pre'] = '';
+$db['nagios']['autoinit'] = TRUE;
+$db['nagios']['stricton'] = FALSE;
+
 // database untuk centreon
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
@@ -81,7 +98,5 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
-
-
 /* End of file database.php */
 /* Location: ./application/config/database.php */
