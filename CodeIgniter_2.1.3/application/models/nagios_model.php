@@ -29,6 +29,7 @@ class Nagios_model extends CI_Model {
 		AND
 			ob.object_id = ns.service_object_id
 			");
+		return $query->result_array();
 	}
 
 }

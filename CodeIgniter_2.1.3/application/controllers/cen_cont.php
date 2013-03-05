@@ -107,6 +107,9 @@ class Cen_cont extends CI_Controller {
 	}
 	public function view_svc_detail()
 	{
+		// dealing with model
+		$this->load->model('nagios_model');
+		$data['service'] = $this->nagios_model->get_service_detail();
 		// view things
 		$data['title'] = "Sistem Pembuatan Laporan Centreon : Laporan Detail Kondisi Service";
 		$this->load->view('monitor/header', $data);
