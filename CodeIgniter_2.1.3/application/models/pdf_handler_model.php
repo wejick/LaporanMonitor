@@ -1,4 +1,3 @@
-<?php
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Pdf_handler_model extends CI_Model {
@@ -9,7 +8,7 @@ class Pdf_handler_model extends CI_Model {
 		}
 		function get_pdf($title,$tableHTML)
 		{
-
+			
 		}
 
 }

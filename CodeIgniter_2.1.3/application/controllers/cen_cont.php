@@ -123,6 +123,7 @@ class Cen_cont extends CI_Controller {
 		// dealing with input from view
 		$title = $this->input->post('title');
 		$tableHTML = $this->input->post('tableHTML');
-		$this->pdf_handler_model->get_pdf($)
+
+		$this->pdf_handler_model->get_pdf($title,$tableHTML);
 	}
 }
