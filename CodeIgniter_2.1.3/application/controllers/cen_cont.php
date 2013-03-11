@@ -116,4 +116,13 @@ class Cen_cont extends CI_Controller {
 		$this->load->view('monitor/monitor_servicedetail', $data);
 		$this->load->view('monitor/footer', $data);
 	}
+	public function export_pdf()
+	{
+		// dealing with model
+		$this->load->model('pdf_handler_model');
+		// dealing with input from view
+		$title = $this->input->post('title');
+		$tableHTML = $this->input->post('tableHTML');
+		$this->pdf_handler_model->get_pdf($)
+	}
 }
