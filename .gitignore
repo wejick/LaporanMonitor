@@ -1,4 +1,9 @@
 #################
+## TCPDF
+#################
+CodeIgniter_2.1.3/application/libraries/tcpdf/*
+
+#################
 ## Eclipse
 #################
 
