@@ -23,8 +23,7 @@ class Pdf_handler_model extends CI_Model {
 			$pdf->SetDisplayMode('real', 'default');
 			$pdf->AddPage();
 			$pdf->writeHTML($tableHTML, true, false, false, false, '');
-			//$pdf->Output('centreon-report.pdf', 'I');
-			echo $tableHTML;
+			$pdf->Output('centreon-report.pdf', 'I');
 		}
 
 }
