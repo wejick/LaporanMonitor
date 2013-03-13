@@ -23,11 +23,24 @@
 		<script type='text/javascript'>
 			function exportPdf()
 			{
-				var title = document.getElementsByTagName('title')[0];
-				var tableHTML = document.getElementById('hor-minimalist-a').innerHTML;
+				var title = document.title;
+				var tableHTML = '<style type="text/css">#hor-minimalist-a {font-family:"Lucida Sans Unicode","Lucida Grande",Sans-Serif;font-size:12px;background:#fff;margin:45px;width:800px;border-collapse:collapse;text-align:left;}#hor-minimalist-a th{font-size:14px;font-weight:normal;color:#039;padding:10px 8px;border-bottom:2px solid#6678b1;}#hor-minimalist-a td{color:#669;padding:9px 8px 0px 8px;}#hor-minimalist-a tbody tr:hover td{color:#009;}</style>';
+				tableHTML = tableHTML + outerHTML(document.getElementById('hor-minimalist-a'));
 				document.exportForm.title.value = title;
 				document.exportForm.tableHTML.value = tableHTML;
 				document.forms["exportForm"].submit();
+			}
+			function outerHTML(node)
+			{
+    			// if IE, Chrome take the internal method otherwise build one
+				return node.outerHTML || (
+     			function(n){
+          			var div = document.createElement('div'), h;
+          			div.appendChild( n.cloneNode(true) );
+					h = div.innerHTML;
+        			div = null;
+         			return h;
+      			})(node);
 			}
 		</script>
 	</div>

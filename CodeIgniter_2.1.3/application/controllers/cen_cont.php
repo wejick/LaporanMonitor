@@ -118,6 +118,7 @@ class Cen_cont extends CI_Controller {
 	}
 	public function export_pdf()
 	{
+		$this->load->library('pdf');
 		// dealing with model
 		$this->load->model('pdf_handler_model');
 		// dealing with input from view
