@@ -68,7 +68,7 @@
 		-webkit-box-shadow: 0 0 8px #D0D0D0;
 	}
 
-	#hor-minimalist-a
+	.hor-minimalist-a
 	{
 		font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 		font-size: 12px;
@@ -78,7 +78,7 @@
 		border-collapse: collapse;
 		text-align: left;
 	}
-	#hor-minimalist-a th
+	.hor-minimalist-a th
 	{
 		font-size: 14px;
 		font-weight: normal;
@@ -86,12 +86,12 @@
 		padding: 10px 8px;
 		border-bottom: 2px solid #6678b1;
 	}
-	#hor-minimalist-a td
+	.hor-minimalist-a td
 	{
 		color: #669;
 		padding: 9px 8px 0px 8px;
 	}
-	#hor-minimalist-a tbody tr:hover td
+	.hor-minimalist-a tbody tr:hover td
 	{
 		color: #009;
 	}

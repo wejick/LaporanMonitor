@@ -22,7 +22,7 @@
             echo "<p>Silahkan pilih host dan rentang waktu terlebih dahulu.</p>";
        }
     ?>
-	<table id="hor-minimalist-a">
+	<table class="hor-minimalist-a">
 		<thead>
 		<tr>
 			<th>Total Up Time</th>
