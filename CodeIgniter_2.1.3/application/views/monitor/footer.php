@@ -16,7 +16,7 @@
 		</ul>
 		<!-- hide export link when there are no table -->
 		<script type='text/javascript'>
-			if(document.getElementById('hor-minimalist-a')==null)
+			if(document.getElementsByClassName('hor-minimalist-a')[0]==null)
 				document.getElementById('exportLink').style.display="none";
 		</script>
 		<!-- handle export link -->
@@ -24,7 +24,9 @@
 			function exportPdf()
 			{
 				var title = document.title;
-				var tableHTML = '<style type="text/css">#hor-minimalist-a {font-family:"Lucida Sans Unicode","Lucida Grande",Sans-Serif;font-size:12px;background:#fff;margin:45px;width:800px;border-collapse:collapse;text-align:left;}#hor-minimalist-a th{font-size:14px;font-weight:normal;color:#039;padding:10px 8px;border-bottom:2px solid#6678b1;}#hor-minimalist-a td{color:#669;padding:9px 8px 0px 8px;}#hor-minimalist-a tbody tr:hover td{color:#009;}</style>';
+				var desc = document.getElementById('Description').innerHTML;
+				var tableHTML = '<style type="text/css">.dsc{margin:5px 0; font-family: "Verdana", "Geneva", "sans-serif";font-size:10pt;}.title{margin:5px 0; font-family: "Verdana", "Geneva", "sans-serif";font-size:14pt;}.hor-minimalist-a{font-family:"Lucida Sans Unicode","Lucida Grande",Sans-Serif;font-size:10pt;background:#fff;margin:20px;width:500px;border-collapse:collapse;text-align:left;}.hor-minimalist-a th{font-size:10pt;font-weight:normal;color:#039;padding:10px 8px;border-bottom:1px solid blue;}.hor-minimalist-a td{font-size:9pt;color:#669;border-bottom:1px solid black;}</style>';
+				tableHTML = tableHTML+'<div class="Title">'+title+'<br /></div>'+'<p class="dsc">'+desc+'</p>';
 				tableHTML = tableHTML + outerHTML(document.getElementById('hor-minimalist-a'));
 				document.exportForm.title.value = title;
 				document.exportForm.tableHTML.value = tableHTML;

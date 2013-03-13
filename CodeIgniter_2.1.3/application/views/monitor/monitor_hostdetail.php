@@ -16,13 +16,13 @@
 	</p>
 	<?php
         if($empty !== 1) {
-            echo "<p>Berikut adalah laporan <i>Up Time</i> sejak tanggal <b>".$host_log['begin_time']." </b> hingga
+            echo "<p id=\"Description\">Berikut adalah laporan <i>Up Time</i> sejak tanggal <b>".$host_log['begin_time']." </b> hingga
 	       <b> ".$host_log['end_time']."</b> untuk ".$hostname.". </p>";
        } else {
             echo "<p>Silahkan pilih host dan rentang waktu terlebih dahulu.</p>";
        }
     ?>
-	<table class="hor-minimalist-a">
+	<table class="hor-minimalist-a" id="hor-minimalist-a">
 		<thead>
 		<tr>
 			<th>Total Up Time</th>

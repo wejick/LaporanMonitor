@@ -1,6 +1,7 @@
 <div id="container">
 	<h1>Daftar service yang dimonitor oleh centreon</h1>
-	<table class="hor-minimalist-a">
+	<p id="Description"> Berikut adalah daftar Service yang dimonitor oleh centreon</p>
+	<table class="hor-minimalist-a" id="hor-minimalist-a">
 		<thead>
 		<tr>
 			<th>Nama Host</th>

@@ -12,9 +12,9 @@
 			echo form_close();
 		?>
 	</p>
-	<p>Berikut adalah laporan <i>Up Time</i> sejak tanggal <b><?php echo $host_log['begin_time'] ?></b> hingga
+	<p id="Description">Berikut adalah laporan <i>Up Time</i> sejak tanggal <b><?php echo $host_log['begin_time'] ?></b> hingga
 	<b><?php echo $host_log['end_time'] ?></b>.  </p>
-	<table class="hor-minimalist-a">
+	<table class="hor-minimalist-a" id="hor-minimalist-a">
 		<thead>
 		<tr>
 			<th>Host Name</th>
